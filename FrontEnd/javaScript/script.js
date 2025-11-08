@@ -18,3 +18,17 @@ const fetchAllWorks = async () => {
 }
 
 fetchAllWorks();
+
+// Fonction pour creer un element figure avec son contenu
+
+const figureWork = (work) => {
+    const figure = document.createElement('figure');
+    const image = document.createElement('img');
+    image.src = work.imageUrl;
+    image.alt = work.title;
+    figure.appendChild(image);
+    const figureCaption = document.createElement('figcaption');
+    figureCaption.textContent = work.title;
+    figure.appendChild(figureCaption);
+    return figure;
+}

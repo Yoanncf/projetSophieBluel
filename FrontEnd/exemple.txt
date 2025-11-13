@@ -1,0 +1,5 @@
+<figure>
+    <img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
+    <figcaption>Appartement Paris V</figcaption>
+</figure>
+

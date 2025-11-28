@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -131,7 +131,7 @@ table {
 body {
   max-width: 1140px;
   margin: auto;
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-size: 14px;
 }
 header {
@@ -146,20 +146,20 @@ section {
 h1 {
   display: flex;
   flex-direction: column;
-  font-family: "Syne";
+  font-family: 'Syne';
   font-size: 22px;
   font-weight: 800;
   color: #b1663c;
 }
 
 h1 > span {
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-size: 10px;
   letter-spacing: 0.1em;
 }
 
 h2 {
-  font-family: "Syne";
+  font-family: 'Syne';
   font-weight: 700;
   font-size: 30px;
   color: #1d6154;
@@ -246,8 +246,8 @@ li:hover {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
-  font-family: "Syne";
+input[type='submit'] {
+  font-family: 'Syne';
   font-weight: 700;
   color: white;
   background-color: #1d6154;
@@ -272,7 +272,7 @@ footer nav ul {
 }
 
 .filters button {
-  font-family: "Syne";
+  font-family: 'Syne';
   font-weight: 700;
   color: #1d6154;
   background-color: #fffef8;

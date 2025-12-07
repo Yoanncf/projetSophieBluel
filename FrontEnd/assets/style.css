@@ -133,6 +133,8 @@ body {
   margin: auto;
   font-family: 'Work Sans';
   font-size: 14px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 254 248/var(--tw-bg-opacity));
 }
 header {
   display: flex;
@@ -289,4 +291,25 @@ footer nav ul {
   color: white !important;
   background-color: #1d6154 !important;
   cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#contact a {
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+#contact {
+  display: flex;
+  flex-direction: column;
+
+}
+.nav-icon {
+  height: 20px;
+  width: auto;
+  display: block;
 }

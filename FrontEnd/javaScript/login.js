@@ -33,7 +33,6 @@ const handleLogin = async (email, password) => {
       throw new Error('Erreur lors de la connexion');
     }
     const data = await response.json();
-    console.log(data);
     if (data.token) {
       localStorage.setItem('token', data.token);
       // Redirection vers index.html en cas de succès

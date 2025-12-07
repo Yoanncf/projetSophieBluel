@@ -5,6 +5,7 @@ const API = 'http://localhost:5678/api/works';
 const API_CATEGORIES = 'http://localhost:5678/api/categories';
 let allWorks = [];
 let allCategories = [];
+const loginLink = document.getElementById('login-link');
 
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
@@ -101,3 +102,26 @@ const filterWorksByCategory = (categoryId) => {
     }
   }
 };
+
+//fonction pour vérifier l'état de connexion
+const checkLoginStatus = () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    loginLink.textContent = 'logout';
+    loginLink.href = '#';
+    loginLink.classList.add('logout-link');
+    loginLink.removeEventListener('click', handleLogout);
+    loginLink.addEventListener('click', handleLogout);
+    }
+};
+
+//gestion du logout
+const handleLogout = (event) => {
+  event.preventDefault();
+  localStorage.removeItem('token');
+  window.location.reload();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkLoginStatus();
+});

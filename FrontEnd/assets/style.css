@@ -160,6 +160,16 @@ h1 > span {
   letter-spacing: 0.1em;
 }
 
+.logout-link {
+  color: black;
+  text-decoration: none;
+  font-family: "Work Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
 h2 {
   font-family: 'Syne';
   font-weight: 700;
@@ -206,6 +216,47 @@ li:hover {
   text-align: center;
   margin-bottom: 1em;
 }
+
+.contains-portfolio {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  margin-left: 36%;
+}
+.contains-portfolio h2 {
+  margin: 0;
+  color: #1D6154;
+  text-align: center;
+  font-family: Syne;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.edit-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Espace entre l'icône et le bouton */
+  display: none;
+  /* Cacher par défaut */
+  margin-bottom: 5%;
+}
+.edit-section i {
+  cursor: pointer;
+}
+#edit-link {
+  text-decoration: none;
+  font-size: 14px;
+  color: #000;
+  text-align: center;
+  font-family: "Work Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
 .gallery {
   width: 100%;
   display: grid;

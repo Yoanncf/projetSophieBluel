@@ -6,6 +6,8 @@ const API_CATEGORIES = 'http://localhost:5678/api/categories';
 let allWorks = [];
 let allCategories = [];
 const loginLink = document.getElementById('login-link');
+const editSection = document.querySelector('.edit-section');
+const adminEdit = document.querySelector('.admin-edit');
 
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
@@ -16,7 +18,6 @@ const fetchAllWorks = async () => {
     }
     const data = await result.json();
     allWorks = data;
-    console.log(data);
     displayGallery(allWorks);
   } catch (error) {
     console.error('Erreur lors de la récupération de tous les works');
@@ -112,6 +113,17 @@ const checkLoginStatus = () => {
     loginLink.classList.add('logout-link');
     loginLink.removeEventListener('click', handleLogout);
     loginLink.addEventListener('click', handleLogout);
+    editSection.style.display = 'block';
+    categoriesContainer.style.display = 'none';
+    adminEdit.innerHTML = '<button class="edit-button"> <i class="fas fa-pen-to-square"></i> Mode édition</button>';
+    adminEdit.classList.add('black-edition');
+  } else {
+    // utilisateur non connecté
+    loginLink.textContent = 'login';
+    loginLink.href = 'login.html';
+    categoriesContainer.style.display = 'flex';
+    adminEdit.style.display = 'none';
+    loginLink.classList.remove('logout-link');
     }
 };
 

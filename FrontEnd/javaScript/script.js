@@ -8,6 +8,9 @@ let allCategories = [];
 const loginLink = document.getElementById('login-link');
 const editSection = document.querySelector('.edit-section');
 const adminEdit = document.querySelector('.admin-edit');
+const projectsContainer = document.getElementById('projects-container');
+const modalGalleryPhoto = document.getElementById('modal-gallery-photo');
+const closeModalButtons = document.querySelectorAll('#modal-gallery-photo .close');
 
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
@@ -134,6 +137,46 @@ const handleLogout = (event) => {
   window.location.reload();
 };
 
+
+
+const displayProjectsInModal = () => {
+  projectsContainer.innerHTML = '';
+  allWorks.forEach((work) => {
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project-item');
+
+    const imageWrapper = document.createElement('div');
+    imageWrapper.classList.add('image-wrapper');
+    const image = document.createElement('img');
+    image.src = work.imageUrl;
+    image.alt = work.title;
+    const deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fa-solid', 'fa-trash-can', 'delete-icon');
+    imageWrapper.appendChild(image);
+    imageWrapper.appendChild(deleteIcon);
+    projectDiv.appendChild(imageWrapper);
+    projectsContainer.appendChild(projectDiv);
+    deleteIcon.addEventListener('click', () => {
+      deleteProject(work.id);
+    });
+  });
+};
+
+// Fonction pour ouvrir le modal de la galerie photo
+const openModalGalleryPhoto = () => {
+  if (modalGalleryPhoto) {
+    modalGalleryPhoto.style.display = 'flex';
+    displayProjectsInModal();
+  }
+};
+
+editSection.addEventListener('click', (e) => {
+  e.preventDefault();
+  openModalGalleryPhoto();
+})
+
+// Initialisation au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
   checkLoginStatus();
+  displayProjectsInModal();
 });

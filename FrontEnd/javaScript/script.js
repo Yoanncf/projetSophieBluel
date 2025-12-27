@@ -1,36 +1,36 @@
 // création des variables
-const gallery = document.querySelector('.gallery');
-const categoriesContainer = document.getElementById('categories');
-const API = 'http://localhost:5678/api/works';
-const API_CATEGORIES = 'http://localhost:5678/api/categories';
+const gallery = document.querySelector(".gallery");
+const categoriesContainer = document.getElementById("categories");
+const API = "http://localhost:5678/api/works";
+const API_CATEGORIES = "http://localhost:5678/api/categories";
 let allWorks = [];
 let allCategories = [];
-const loginLink = document.getElementById('login-link');
-const editSection = document.querySelector('.edit-section');
-const adminEdit = document.querySelector('.admin-edit');
-const projectsContainer = document.getElementById('projects-container');
-const modalGalleryPhoto = document.getElementById('modal-gallery-photo');
-const closeModalButtons = document.querySelectorAll('#modal-gallery-photo .close');
+const loginLink = document.getElementById("login-link");
+const editSection = document.querySelector(".edit-section");
+const adminEdit = document.querySelector(".admin-edit");
+const projectsContainer = document.getElementById("projects-container");
+const modalGalleryPhoto = document.getElementById("modal-gallery-photo");
+const closeModalButtons = document.querySelectorAll(".close");
 
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
   try {
     const result = await fetch(`${API}`);
     if (!result.ok) {
-      console.error('Erreur API');
+      console.error("Erreur API");
     }
     const data = await result.json();
     allWorks = data;
     displayGallery(allWorks);
   } catch (error) {
-    console.error('Erreur lors de la récupération de tous les works');
+    console.error("Erreur lors de la récupération de tous les works");
   }
 };
 
 fetchAllWorks();
 //Fonction pour remplir la galerie avec les projets récupérés
 const displayGallery = (works) => {
-  gallery.innerHTML = '';
+  gallery.innerHTML = "";
   works.forEach((work) => {
     const figure = figureWork(work);
     gallery.appendChild(figure);
@@ -40,12 +40,12 @@ const displayGallery = (works) => {
 // Fonction pour creer un element figure avec son contenu
 
 const figureWork = (work) => {
-  const figure = document.createElement('figure');
-  const image = document.createElement('img');
+  const figure = document.createElement("figure");
+  const image = document.createElement("img");
   image.src = work.imageUrl;
   image.alt = work.title;
   figure.appendChild(image);
-  const figureCaption = document.createElement('figcaption');
+  const figureCaption = document.createElement("figcaption");
   figureCaption.textContent = work.title;
   figure.appendChild(figureCaption);
   return figure;
@@ -55,42 +55,42 @@ const fetchAllCategories = async () => {
   try {
     const result = await fetch(`${API_CATEGORIES}`);
     if (!result.ok) {
-      console.error('Erreur API');
+      console.error("Erreur API");
     }
     const data = await result.json();
-    data.unshift({ id: 0, name: 'Tous' });
+    data.unshift({ id: 0, name: "Tous" });
     allCategories = data;
     console.log(data);
     for (let category of allCategories) {
-      const button = document.createElement('button');
+      const button = document.createElement("button");
       button.textContent = category.name;
-      button.setAttribute('data-id', category.id);
+      button.setAttribute("data-id", category.id);
       categoriesContainer.appendChild(button);
       // Par défaut le filtre "Tous" est actif
       if (category.id === 0) {
-        button.classList.add('active-filter');
+        button.classList.add("active-filter");
       }
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération de tous les catégories');
+    console.error("Erreur lors de la récupération de tous les catégories");
   }
 };
 fetchAllCategories();
 
-categoriesContainer.addEventListener('click', (e) => {
-  const allButtons = document.querySelectorAll('#categories button');
-  if (e.target.getAttribute('data-id')) {
+categoriesContainer.addEventListener("click", (e) => {
+  const allButtons = document.querySelectorAll("#categories button");
+  if (e.target.getAttribute("data-id")) {
     allButtons.forEach((button) => {
-      button.classList.remove('active-filter');
+      button.classList.remove("active-filter");
     });
-    const categoryId = parseInt(e.target.getAttribute('data-id'));
-    e.target.classList.add('active-filter');
+    const categoryId = parseInt(e.target.getAttribute("data-id"));
+    e.target.classList.add("active-filter");
     filterWorksByCategory(categoryId);
   }
 });
 
 const filterWorksByCategory = (categoryId) => {
-  gallery.innerHTML = '';
+  gallery.innerHTML = "";
   if (categoryId === 0) {
     for (let work of allWorks) {
       const figure = figureWork(work);
@@ -109,74 +109,122 @@ const filterWorksByCategory = (categoryId) => {
 
 //fonction pour vérifier l'état de connexion
 const checkLoginStatus = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (token) {
-    loginLink.textContent = 'logout';
-    loginLink.href = '#';
-    loginLink.classList.add('logout-link');
-    loginLink.removeEventListener('click', handleLogout);
-    loginLink.addEventListener('click', handleLogout);
-    editSection.style.display = 'block';
-    categoriesContainer.style.display = 'none';
-    adminEdit.innerHTML = '<button class="edit-button"> <i class="fas fa-pen-to-square"></i> Mode édition</button>';
-    adminEdit.classList.add('black-edition');
+    loginLink.textContent = "logout";
+    loginLink.href = "#";
+    loginLink.classList.add("logout-link");
+    loginLink.removeEventListener("click", handleLogout);
+    loginLink.addEventListener("click", handleLogout);
+    editSection.style.display = "block";
+    categoriesContainer.style.display = "none";
+    adminEdit.innerHTML =
+      '<button class="edit-button"> <i class="fas fa-pen-to-square"></i> Mode édition</button>';
+    adminEdit.classList.add("black-edition");
   } else {
     // utilisateur non connecté
-    loginLink.textContent = 'login';
-    loginLink.href = 'login.html';
-    categoriesContainer.style.display = 'flex';
-    adminEdit.style.display = 'none';
-    loginLink.classList.remove('logout-link');
-    }
+    loginLink.textContent = "login";
+    loginLink.href = "login.html";
+    categoriesContainer.style.display = "flex";
+    adminEdit.style.display = "none";
+    loginLink.classList.remove("logout-link");
+  }
 };
 
 //gestion du logout
 const handleLogout = (event) => {
   event.preventDefault();
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
   window.location.reload();
 };
 
-
-
 const displayProjectsInModal = () => {
-  projectsContainer.innerHTML = '';
+  projectsContainer.innerHTML = "";
   allWorks.forEach((work) => {
-    const projectDiv = document.createElement('div');
-    projectDiv.classList.add('project-item');
+    const projectDiv = document.createElement("div");
+    projectDiv.classList.add("project-item");
 
-    const imageWrapper = document.createElement('div');
-    imageWrapper.classList.add('image-wrapper');
-    const image = document.createElement('img');
+    const imageWrapper = document.createElement("div");
+    imageWrapper.classList.add("image-wrapper");
+    const image = document.createElement("img");
     image.src = work.imageUrl;
     image.alt = work.title;
-    const deleteIcon = document.createElement('i');
-    deleteIcon.classList.add('fa-solid', 'fa-trash-can', 'delete-icon');
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon");
     imageWrapper.appendChild(image);
     imageWrapper.appendChild(deleteIcon);
     projectDiv.appendChild(imageWrapper);
     projectsContainer.appendChild(projectDiv);
-    deleteIcon.addEventListener('click', () => {
+    deleteIcon.addEventListener("click", () => {
+      console.log("Suppression du projet avec l'ID :", work.id);
       deleteProject(work.id);
     });
   });
 };
 
-// Fonction pour ouvrir le modal de la galerie photo
+// Fonction pour ouvrir le modal de la galerie photo en cliquant sur le bouton 'modifier'
 const openModalGalleryPhoto = () => {
   if (modalGalleryPhoto) {
-    modalGalleryPhoto.style.display = 'flex';
+    modalGalleryPhoto.style.display = "flex";
     displayProjectsInModal();
   }
 };
 
-editSection.addEventListener('click', (e) => {
+editSection.addEventListener("click", (e) => {
   e.preventDefault();
   openModalGalleryPhoto();
-})
+});
+
+// Suppression à l'aide d'un boutton
+const deleteProject = async (projectId) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Vous devez être connecté pour supprimer un projet.");
+    return;
+  }
+  const confirmDelete = confirm(
+    "Êtes-vous sûr de vouloir supprimer ce projet ?"
+  );
+  if (!confirmDelete) return;
+  console.log("le token est :", token);
+  try {
+    const response = await fetch(`${API}/${projectId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Erreur lors de la suppression du projet");
+    }
+    console.log("Projet supprimé avec succès");
+  } catch (error) {
+    console.error("Erreur lors de la suppression du projet :", error);
+  }
+  // Mettre à jour l'affichage après la suppression
+  gallery.innerHTML = "";
+  fetchAllWorks();
+  displayProjectsInModal();
+  // Fermeture du modal après suppression
+  modalGalleryPhoto.style.display = "none";
+};
+
+// Fermeture du modal
+closeModalButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    modalGalleryPhoto.style.display = "none";
+  });
+});
+
+// Fermeture du modal en cliquant en dehors du contenu
+window.addEventListener("click", (event) => {
+  if (event.target === modalGalleryPhoto) {
+    modalGalleryPhoto.style.display = "none";
+  }
+});
 
 // Initialisation au chargement de la page
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   checkLoginStatus();
   displayProjectsInModal();
 });

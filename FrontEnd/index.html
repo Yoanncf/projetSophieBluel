@@ -26,7 +26,13 @@
           <li>projets</li>
           <li>contact</li>
           <li><a href="./login.html" id="login-link">login</a></li>
-          <li><img class="nav-icon" src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          <li>
+            <img
+              class="nav-icon"
+              src="./assets/icons/instagram.png"
+              alt="Instagram"
+            />
+          </li>
         </ul>
       </nav>
     </header>
@@ -56,15 +62,15 @@
       </section>
       <section id="portfolio">
         <div class="contains-portfolio">
-        <h2>Mes Projets</h2>
-        <div class="edit-section">
+          <h2>Mes Projets</h2>
+          <div class="edit-section">
             <i class="fa-solid fa-pen-to-square"></i>
             <a href="#" id="edit-link">modifier</a>
-        </div>
+          </div>
         </div>
         <div class="filters" id="categories"></div>
         <div class="gallery"></div>
-        
+
         <!--Modal Photo gallery-->
         <div id="modal-gallery-photo" class="modal">
           <div class="modal-content">
@@ -76,7 +82,69 @@
             <button id="add-photo-button">Ajouter une photo</button>
           </div>
         </div>
-
+        <!--Modal Add Photo-->
+        <div class="modal" id="modal-add-photo">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <button class="back-arrow">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h2>Ajout photo</h2>
+            <form
+              id="add-photo-input"
+              method="post"
+              enctype="multipart/form-data"
+              action="#"
+            >
+              <div class="photo-card">
+                <div class="photo-icon">
+                  <i class="fa-regular fa-image"></i>
+                </div>
+                <!-- bouton pour ouvrir le selecteur de fichier -->
+                <label for="photo-file" class="add-photo-button-in-card"
+                  >+ Ajouter photo</label
+                >
+                <input
+                  type="file"
+                  id="photo-file"
+                  name="photo-file"
+                  accept="image/*"
+                  style="display: none"
+                />
+                <p class="info">jpg, png: 4mo max</p>
+                <div class="image-preview-container">
+                  <img
+                    src=""
+                    alt="preview"
+                    class="image-preview"
+                    id="imagePreview"
+                  />
+                </div>
+              </div>
+              <div class="form-section">
+                <label for="photo-title">Titre</label>
+                <input
+                  type="text"
+                  id="photo-title"
+                  name="photo-title"
+                />
+                <label for="photo-category">Catégorie</label>
+                <select
+                  id="photo-category"
+                  name="photo-category"
+                >
+                  <!-- Les options seront ajoutées dynamiquement avec JS -->
+                </select>
+              </div>
+              <div class="modal-footer">
+                <hr class="footer-line" />
+                <button id="validate-photo" class="validate-button">
+                  Valider
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
       <section id="contact">
         <h2>Contact</h2>

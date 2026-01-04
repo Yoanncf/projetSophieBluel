@@ -11,7 +11,9 @@ const adminEdit = document.querySelector(".admin-edit");
 const projectsContainer = document.getElementById("projects-container");
 const modalGalleryPhoto = document.getElementById("modal-gallery-photo");
 const closeModalButtons = document.querySelectorAll(".close");
-
+const modalAddPhoto = document.getElementById("modal-add-photo");
+const addPhotoButton = document.getElementById("add-photo-button");
+const validateButton = document.getElementById("validate-button");
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
   try {
@@ -209,16 +211,31 @@ const deleteProject = async (projectId) => {
   modalGalleryPhoto.style.display = "none";
 };
 
-// Fermeture du modal
+// Fermeture des modal
 closeModalButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    modalGalleryPhoto.style.display = "none";
+    if (modalGalleryPhoto) {
+      modalGalleryPhoto.style.display = "none";
+    }
+    if (modalAddPhoto) {
+      modalAddPhoto.style.display = "none";
+    }
   });
 });
 
 // Fermeture du modal en cliquant en dehors du contenu
 window.addEventListener("click", (event) => {
   if (event.target === modalGalleryPhoto) {
+    modalGalleryPhoto.style.display = "none";
+  }
+});
+
+// Ajout d'une photo
+addPhotoButton.addEventListener("click", () => {
+  if (modalAddPhoto) {
+    // Ouvrir le second modal
+    modalAddPhoto.style.display = "flex";
+    // Fermer le premier modal
     modalGalleryPhoto.style.display = "none";
   }
 });

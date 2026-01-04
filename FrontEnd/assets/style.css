@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
@@ -139,7 +139,7 @@ table {
 }
 
 .black-edition i {
-  color: white ;
+  color: white;
 }
 
 .black-edition button {
@@ -153,10 +153,10 @@ table {
 body {
   max-width: 1140px;
   margin: auto;
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-size: 14px;
   --tw-bg-opacity: 1;
-  background-color: rgb(255 254 248/var(--tw-bg-opacity));
+  background-color: rgb(255 254 248 / var(--tw-bg-opacity));
 }
 header {
   display: flex;
@@ -170,14 +170,14 @@ section {
 h1 {
   display: flex;
   flex-direction: column;
-  font-family: 'Syne';
+  font-family: "Syne";
   font-size: 22px;
   font-weight: 800;
   color: #b1663c;
 }
 
 h1 > span {
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-size: 10px;
   letter-spacing: 0.1em;
 }
@@ -193,7 +193,7 @@ h1 > span {
 }
 
 h2 {
-  font-family: 'Syne';
+  font-family: "Syne";
   font-weight: 700;
   font-size: 30px;
   color: #1d6154;
@@ -248,7 +248,7 @@ li:hover {
 }
 .contains-portfolio h2 {
   margin: 0;
-  color: #1D6154;
+  color: #1d6154;
   text-align: center;
   font-family: Syne;
   font-size: 30px;
@@ -308,7 +308,7 @@ li:hover {
 .modal-content h2 {
   margin-bottom: 5px;
   margin-top: 60px;
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-size: 26px;
   font-weight: 400;
   color: #000;
@@ -334,7 +334,7 @@ li:hover {
 }
 
 .image-wrapper {
-  position:relative;
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -363,7 +363,7 @@ li:hover {
 }
 
 .close {
-  float:right;
+  float: right;
   cursor: pointer;
   font-size: 50px;
   font-weight: bold;
@@ -373,7 +373,7 @@ li:hover {
   display: block;
   width: 237px;
   height: 36px;
-  background-color: #1d6154 ;
+  background-color: #1d6154;
   color: white;
   text-align: center;
   line-height: 36px;
@@ -385,6 +385,172 @@ li:hover {
   border-radius: 60px;
   cursor: pointer;
   margin: 30px auto;
+}
+
+/* deuxième modal */
+
+#modal-add-photo .modal-content {
+  position: relative;
+  padding: 20px;
+  width: 65%;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#modal-add-photo .modal-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#modal-add-photo input,
+#modal-add-photo select {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#modal-add-photo input {
+  width: 400px;
+}
+
+#modal-add-photo select {
+  width: 420px;
+}
+
+#add-photo-input {
+  margin: 0 auto;
+  max-width: 420px;
+}
+
+.back-arrow {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.photo-card {
+  background-color: #e8f1f6;
+  /* Assure-toi que la couleur reste inchangée */
+  padding: 0 20px;
+  /* Ajoute un peu d'espace sur les côtés */
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.photo-card i {
+  font-size: 48px;
+  color: #888;
+  margin-top: 20px;
+}
+
+.photo-icon {
+  font-size: 48px;
+  /* Ajuste la taille selon tes besoins */
+  margin-bottom: 10px;
+  /* Assure un espace suffisant */
+}
+
+.add-photo-button-in-card {
+  justify-content: center;
+  /* Centrer horizontalement */
+  align-items: center;
+  /* Centrer verticalement */
+  width: 173px;
+  height: 36px;
+  border-radius: 50px;
+  background: #cbd6dc;
+  border: none;
+  color: #306685;
+  text-align: center;
+  font-family: "Work Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0 auto;
+  /* Centrer horizontalement le bouton dans son conteneur */
+  cursor: pointer;
+}
+
+.info {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.image-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* Assure que le conteneur prend toute la hauteur */
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 168px;
+  object-fit: contain;
+  /* Pour s'assurer que l'image garde ses proportions */
+  display: none;
+  margin: auto 0;
+  /* Hide image preview initially */
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.styleInput {
+  height: 51px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.fa-regular {
+  color: #b9c5cc !important;
+}
+
+/* Ligne en bas de la modal */
+.modal-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.footer-line {
+  border: 0;
+  border-top: 1px solid #b3b3b3;
+  /* Couleur et style de la ligne */
+  margin-bottom: 20px;
+  /* Espacement entre la ligne et le bouton */
+}
+
+/* Style du bouton Valider */
+
+.validate-button {
+  width: 237px;
+  height: 36px;
+  background-color: #1d6154;
+  border: none;
+  border-radius: 60px;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-footer button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
 }
 
 .gallery {
@@ -429,8 +595,8 @@ li:hover {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type='submit'] {
-  font-family: 'Syne';
+input[type="submit"] {
+  font-family: "Syne";
   font-weight: 700;
   color: white;
   background-color: #1d6154;
@@ -455,7 +621,7 @@ footer nav ul {
 }
 
 .filters button {
-  font-family: 'Syne';
+  font-family: "Syne";
   font-weight: 700;
   color: #1d6154;
   background-color: #fffef8;
@@ -487,7 +653,6 @@ a {
 #contact {
   display: flex;
   flex-direction: column;
-
 }
 .nav-icon {
   height: 20px;

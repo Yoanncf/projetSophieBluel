@@ -14,6 +14,14 @@ const closeModalButtons = document.querySelectorAll(".close");
 const modalAddPhoto = document.getElementById("modal-add-photo");
 const addPhotoButton = document.getElementById("add-photo-button");
 const validateButton = document.getElementById("validate-button");
+const backArrowButton = document.getElementById("back-arrow");
+const imageInput = document.getElementById("photo-file");
+const imagePreview = document.getElementById("imagePreview");
+const iconPreview = document.querySelector(".photo-icon");
+const addFile = document.querySelector(".add-photo-button-in-card");
+const formP = document.querySelector("form p");
+const selectCategory = document.getElementById("category-select");
+
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
   try {
@@ -237,8 +245,64 @@ addPhotoButton.addEventListener("click", () => {
     modalAddPhoto.style.display = "flex";
     // Fermer le premier modal
     modalGalleryPhoto.style.display = "none";
+    categoriesSelect();
+    
   }
 });
+
+// Retour au modal de la galerie en cliquant sur la flèche
+backArrowButton.addEventListener("click", () => {
+  if (modalAddPhoto) {
+    // Retour au modal de la galerie
+    modalAddPhoto.style.display = "none";
+    // Ouvrir le modal de la galerie
+    modalGalleryPhoto.style.display = "flex";
+  }
+});
+
+// Methode pour l'ajout de prévisualisation de l'image
+imageInput.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  const ACCEPTED_EXTENSIONS = ["jpg", "png"];
+  const fileName = file.name;
+  // Récupération de l'extension du fichier en minuscules
+  const fileExtension = fileName.split(".").pop().toLowerCase();
+  if (
+    file &&
+    file.size <= 4 * 1024 * 1024 &&
+    ACCEPTED_EXTENSIONS.includes(fileExtension)
+  ) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.src = e.target.result;
+      imagePreview.style.display = "block"; // Afficher la prévisualisation de l'image
+      iconPreview.style.display = "none"; // Masquer l'icône
+      addFile.style.display = "none";
+      formP.style.display = "none";
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert(
+      "Fichier invalide. Veuillez sélectionner une image JPG ou PNG de moins de 4 Mo."
+    );
+  }
+});
+
+//methode pour ajouter les options dynamiquement dans le select
+const categoriesSelect = () => {
+  const option = document.createElement("option");
+  selectCategory.innerHTML = "";
+  selectCategory.appendChild(option);
+  allCategories.forEach((category) => {
+    if (category.id !== 0) {
+      let option = document.createElement("option");
+      option.value = category.name;
+      option.textContent = category.name;
+      option.id = category.id;
+      selectCategory.appendChild(option);
+    }
+  });
+};
 
 // Initialisation au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {

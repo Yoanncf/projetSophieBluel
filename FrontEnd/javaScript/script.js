@@ -13,7 +13,7 @@ const modalGalleryPhoto = document.getElementById("modal-gallery-photo");
 const closeModalButtons = document.querySelectorAll(".close");
 const modalAddPhoto = document.getElementById("modal-add-photo");
 const addPhotoButton = document.getElementById("add-photo-button");
-const validateButton = document.getElementById("validate-button");
+const validateButton = document.getElementById("validate-photo");
 const backArrowButton = document.getElementById("back-arrow");
 const imageInput = document.getElementById("photo-file");
 const imagePreview = document.getElementById("imagePreview");
@@ -21,6 +21,7 @@ const iconPreview = document.querySelector(".photo-icon");
 const addFile = document.querySelector(".add-photo-button-in-card");
 const formP = document.querySelector("form p");
 const selectCategory = document.getElementById("category-select");
+const photoTitleInput = document.getElementById("photo-title");
 
 //Appel à l’API avec fetch afin de récupérer dynamiquement les projets de l’architecte.
 const fetchAllWorks = async () => {
@@ -246,7 +247,6 @@ addPhotoButton.addEventListener("click", () => {
     // Fermer le premier modal
     modalGalleryPhoto.style.display = "none";
     categoriesSelect();
-    
   }
 });
 
@@ -304,8 +304,70 @@ const categoriesSelect = () => {
   });
 };
 
+// Gestion de l'ajout de projet
+const submitPhoto = async (event) => {
+  event.preventDefault();
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Vous devez être connecté pour ajouter un projet.");
+    return;
+  }
+  //vérification si les éléments existent
+  if (!imageInput || !selectCategory || !imagePreview || !photoTitleInput) {
+    console.error("Un ou plusieurs éléments du formulaire sont manquants.");
+    return;
+  }
+  const title = photoTitleInput.value;
+  const optionIndex = selectCategory.selectedIndex;
+  console.log("Index de l'option sélectionnée :", optionIndex);
+  const categoryId = parseInt(selectCategory.options[optionIndex]?.id);
+  const imageFile = imageInput.files[0];
+  //vérification des valeurs
+  if (!title || !categoryId || !imageFile) {
+    alert("Veuillez remplir tous les champs du formulaire.");
+    return;
+  }
+  const confirmation = confirm(
+    `Voulez-vous vraiment ajouter ce projet ${title}?`
+  );
+  if (!confirmation) return;
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("category", categoryId);
+  formData.append("image", imageFile);
+
+  try {
+    const response = await fetch(`${API}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erreur lors de l'ajout du projet ${response.status}`);
+    }
+    gallery.innerHTML = "";
+    fetchAllWorks();
+    displayProjectsInModal();
+    // Fermeture du modal après ajout
+    modalAddPhoto.style.display = "none";
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du projet :", error);
+    alert(
+      "Une erreur est survenue lors de l'ajout du projet. Veuillez réessayer."
+    );
+  }
+};
+
 // Initialisation au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
   checkLoginStatus();
   displayProjectsInModal();
+  if (validateButton) {
+    validateButton.addEventListener("click", submitPhoto);
+  } else {
+    console.error("Le bouton de validation est introuvable.");
+  }
 });

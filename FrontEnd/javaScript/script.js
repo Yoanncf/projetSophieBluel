@@ -109,7 +109,7 @@ const filterWorksByCategory = (categoryId) => {
     }
   } else {
     const filteredWorks = allWorks.filter(
-      (work) => work.categoryId === categoryId
+      (work) => work.categoryId === categoryId,
     );
     for (let work of filteredWorks) {
       const figure = figureWork(work);
@@ -194,7 +194,7 @@ const deleteProject = async (projectId) => {
     return;
   }
   const confirmDelete = confirm(
-    "Êtes-vous sûr de vouloir supprimer ce projet ?"
+    "Êtes-vous sûr de vouloir supprimer ce projet ?",
   );
   if (!confirmDelete) return;
   console.log("le token est :", token);
@@ -247,6 +247,8 @@ addPhotoButton.addEventListener("click", () => {
     // Fermer le premier modal
     modalGalleryPhoto.style.display = "none";
     categoriesSelect();
+    checkFormValidity();
+    resetInput();
   }
 });
 
@@ -283,7 +285,7 @@ imageInput.addEventListener("change", (event) => {
     reader.readAsDataURL(file);
   } else {
     alert(
-      "Fichier invalide. Veuillez sélectionner une image JPG ou PNG de moins de 4 Mo."
+      "Fichier invalide. Veuillez sélectionner une image JPG ou PNG de moins de 4 Mo.",
     );
   }
 });
@@ -319,7 +321,6 @@ const submitPhoto = async (event) => {
   }
   const title = photoTitleInput.value;
   const optionIndex = selectCategory.selectedIndex;
-  console.log("Index de l'option sélectionnée :", optionIndex);
   const categoryId = parseInt(selectCategory.options[optionIndex]?.id);
   const imageFile = imageInput.files[0];
   //vérification des valeurs
@@ -328,7 +329,7 @@ const submitPhoto = async (event) => {
     return;
   }
   const confirmation = confirm(
-    `Voulez-vous vraiment ajouter ce projet ${title}?`
+    `Voulez-vous vraiment ajouter ce projet ${title}?`,
   );
   if (!confirmation) return;
   const formData = new FormData();
@@ -356,9 +357,37 @@ const submitPhoto = async (event) => {
   } catch (error) {
     console.error("Erreur lors de l'ajout du projet :", error);
     alert(
-      "Une erreur est survenue lors de l'ajout du projet. Veuillez réessayer."
+      "Une erreur est survenue lors de l'ajout du projet. Veuillez réessayer.",
     );
   }
+};
+
+// Gestion du clic sur le bouton de validation
+const checkFormValidity = () => {
+  const title = photoTitleInput.value.trim();
+  const category = selectCategory.value;
+  const imageFile = imageInput.files[0];
+  if (title && category && imageFile) {
+    validateButton.disabled = false;
+  } else {
+    validateButton.disabled = true;
+  }
+};
+
+// Écouter les changements dans les champs du formulaire
+photoTitleInput.addEventListener("input", checkFormValidity);
+selectCategory.addEventListener("change", checkFormValidity);
+imageInput.addEventListener("change", checkFormValidity);
+
+//méthode pour reinitialiser la prévisualisation et les champs du formulaire
+const resetInput = () => {
+  imagePreview.src = "";
+  imagePreview.style.display = "none";
+  iconPreview.style.display = "block";
+  addFile.style.display = "flex";
+  formP.style.display = "block";
+  photoTitleInput.value = "";
+  validateButton.disabled = true;
 };
 
 // Initialisation au chargement de la page

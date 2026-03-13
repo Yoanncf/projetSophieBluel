@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -23,15 +23,17 @@
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <li>projets</li>
-          <li>contact</li>
+          <li><a href="#portfolio">projets</a></li>
+          <li><a href="#contact">contact</a></li>
           <li><a href="./login.html" id="login-link">login</a></li>
           <li>
-            <img
-              class="nav-icon"
-              src="./assets/icons/instagram.png"
-              alt="Instagram"
-            />
+            <a href="#">
+              <img
+                class="nav-icon"
+                src="./assets/icons/instagram.png"
+                alt="Instagram"
+              />
+            </a>
           </li>
         </ul>
       </nav>
@@ -123,16 +125,9 @@
               </div>
               <div class="form-section">
                 <label for="photo-title">Titre</label>
-                <input
-                  type="text"
-                  id="photo-title"
-                  name="photo-title"
-                />
+                <input type="text" id="photo-title" name="photo-title" />
                 <label for="category-select">Catégorie</label>
-                <select
-                  id="category-select"
-                  name="photo-category"
-                >
+                <select id="category-select" name="photo-category">
                   <!-- Les options seront ajoutées dynamiquement avec JS -->
                 </select>
               </div>
